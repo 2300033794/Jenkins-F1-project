@@ -1,0 +1,45 @@
+package com.klef.dev.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.klef.dev.model.Driver;
+import com.klef.dev.service.DriverService;
+
+@RestController
+@RequestMapping("/f1api/")
+@CrossOrigin(origins = "") // Adjust if React runs on different port
+public class DriverController {
+
+    @Autowired
+    private DriverService driverService;
+
+    @PostMapping("/add")
+    public Driver addDriver(@RequestBody Driver driver) {
+        return driverService.addDriver(driver);
+    }
+
+    @PutMapping("/update")
+    public Driver updateDriver(@RequestBody Driver driver) {
+        return driverService.updateDriver(driver);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteDriver(@PathVariable int id) {
+        return driverService.deleteDriver(id);
+    }
+
+    @GetMapping("/get/{id}")
+    public Driver getDriverById(@PathVariable int id) {
+        return driverService.getDriverById(id);
+    }
+
+    @GetMapping("/all")
+    public List<Driver> getAllDrivers() {
+        return driverService.getAllDrivers();
+    }
+
+
+}

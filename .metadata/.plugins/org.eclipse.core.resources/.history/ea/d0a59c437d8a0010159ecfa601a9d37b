@@ -1,0 +1,57 @@
+package com.klef.dev.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "drivers")
+public class Driver {
+    
+    @Id
+    private int id;
+    private String name;
+    private String team;
+    private String nationality;
+    private int carNumber;
+    private int championships;
+    private int wins;
+    private int podiums;
+    private int fastestLaps;
+    private String email;
+    private String contact;
+
+    // Getters and Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getTeam() { return team; }
+    public void setTeam(String team) { this.team = team; }
+
+    public String getNationality() { return nationality; }
+    public void setNationality(String nationality) { this.nationality = nationality; }
+
+    public int getCarNumber() { return carNumber; }
+    public void setCarNumber(int carNumber) { this.carNumber = carNumber; }
+
+    public int getChampionships() { return championships; }
+    public void setChampionships(int championships) { this.championships = championships; }
+
+    public int getWins() { return wins; }
+    public void setWins(int wins) { this.wins = wins; }
+
+    public int getPodiums() { return podiums; }
+    public void setPodiums(int podiums) { this.podiums = podiums; }
+
+    public int getFastestLaps() { return fastestLaps; }
+    public void setFastestLaps(int fastestLaps) { this.fastestLaps = fastestLaps; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getContact() { return contact; }
+    public void setContact(String contact) { this.contact = contact; }
+}
