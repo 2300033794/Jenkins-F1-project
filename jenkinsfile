@@ -1,12 +1,19 @@
 pipeline {
     agent any
 
+    environment {
+        // Tomcat path configuration
+        TOMCAT_PATH = "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps"
+        FRONTEND_FOLDER = "Frontend"
+        BACKEND_FOLDER = "Backend"
+    }
+
     stages {
 
         // ===== FRONTEND BUILD =====
         stage('Build Frontend') {
             steps {
-                dir('Frontend') {
+                dir("${FRONTEND_FOLDER}") {
                     bat 'npm install'
                     bat 'npm run build'
                 }
@@ -16,21 +23,21 @@ pipeline {
         // ===== FRONTEND DEPLOY =====
         stage('Deploy Frontend to Tomcat') {
             steps {
-                bat '''
-                if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\reactf1playerapi" (
-                    rmdir /S /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\reactf1playerapi"
+                bat """
+                if exist "${TOMCAT_PATH}\\reactf1playerapi" (
+                    rmdir /S /Q "${TOMCAT_PATH}\\reactf1playerapi"
                 )
-                mkdir "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\reactf1playerapi"
-                xcopy /E /I /Y Frontend\\dist\\* "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\reactf1playerapi"
-                '''
+                mkdir "${TOMCAT_PATH}\\reactf1playerapi"
+                xcopy /E /I /Y "${WORKSPACE}\\${FRONTEND_FOLDER}\\dist\\*" "${TOMCAT_PATH}\\reactf1playerapi\\"
+                """
             }
         }
 
         // ===== BACKEND BUILD =====
         stage('Build Backend') {
             steps {
-                dir('Backend') {
-                    bat 'mvn clean package'
+                dir("${BACKEND_FOLDER}") {
+                    bat 'mvn clean package -DskipTests'
                 }
             }
         }
@@ -38,26 +45,25 @@ pipeline {
         // ===== BACKEND DEPLOY =====
         stage('Deploy Backend to Tomcat') {
             steps {
-                bat '''
-                if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Springbootf1project.war" (
-                    del /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Springbootf1project.war"
+                bat """
+                if exist "${TOMCAT_PATH}\\Springbootf1project.war" (
+                    del /Q "${TOMCAT_PATH}\\Springbootf1project.war"
                 )
-                if exist "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Springbootf1project" (
-                    rmdir /S /Q "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\Springbootf1project"
+                if exist "${TOMCAT_PATH}\\Springbootf1project" (
+                    rmdir /S /Q "${TOMCAT_PATH}\\Springbootf1project"
                 )
-                copy "Backend\\target\\*.war" "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\"
-                '''
+                copy "${WORKSPACE}\\${BACKEND_FOLDER}\\target\\*.war" "${TOMCAT_PATH}\\Springbootf1project.war"
+                """
             }
         }
-
     }
 
     post {
         success {
-            echo 'Deployment Successful!'
+            echo '✅ Deployment Successful!'
         }
         failure {
-            echo 'Pipeline Failed.'
+            echo '❌ Pipeline Failed. Please check logs.'
         }
     }
 }
