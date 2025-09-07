@@ -5,7 +5,7 @@ pipeline {
         // Tomcat path configuration
         TOMCAT_PATH = "C:\\Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps"
         FRONTEND_FOLDER = "Frontend"
-        BACKEND_FOLDER = "Backend"
+        BACKEND_FOLDER = "Backend2"
     }
 
     stages {
