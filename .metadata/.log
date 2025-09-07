@@ -3037,3 +3037,6 @@ Binding(CTRL+SHIFT+T,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-09-07 19:53:51.236
+!MESSAGE Classpath changed for project: Backend2

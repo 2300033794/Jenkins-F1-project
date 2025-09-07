@@ -69,7 +69,7 @@
 
     <build>
         <!-- WAR file name -->
-        <finalName>Springbootf1project</finalName>
+        <finalName>f1api</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

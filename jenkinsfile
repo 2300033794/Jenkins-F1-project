@@ -46,13 +46,13 @@ pipeline {
         stage('Deploy Backend to Tomcat') {
             steps {
                 bat """
-                if exist "${TOMCAT_PATH}\\Springbootf1project.war" (
-                    del /Q "${TOMCAT_PATH}\\Springbootf1project.war"
+                if exist "${TOMCAT_PATH}\\f1api.war" (
+                    del /Q "${TOMCAT_PATH}\\f1api.war"
                 )
-                if exist "${TOMCAT_PATH}\\Springbootf1project" (
-                    rmdir /S /Q "${TOMCAT_PATH}\\Springbootf1project"
+                if exist "${TOMCAT_PATH}\\f1api" (
+                    rmdir /S /Q "${TOMCAT_PATH}\\f1api"
                 )
-                copy "${WORKSPACE}\\${BACKEND_FOLDER}\\target\\*.war" "${TOMCAT_PATH}\\Springbootf1project.war"
+                copy "${WORKSPACE}\\${BACKEND_FOLDER}\\target\\*.war" "${TOMCAT_PATH}\\f1api.war"
                 """
             }
         }
